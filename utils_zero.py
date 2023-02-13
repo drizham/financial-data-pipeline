@@ -1,4 +1,5 @@
 import csv
+import os
 
 def read_start_end_dates(file_path):
     
@@ -16,3 +17,14 @@ def read_start_end_dates(file_path):
         start.append(a)
         end.append(b)
     return start, end
+
+def create_directory(path):
+    """creates a directory if it does not already exist"""
+    try:
+        if not os.path.exists(path):
+            print(f'{path} does not exist')
+            os.makedirs(path) # create path if needed
+            print(f'{path} directory created')
+            return
+    except OSError:
+        sys.exit('Fatal: output directory "' + path + '" does not exist and cannot be created')
