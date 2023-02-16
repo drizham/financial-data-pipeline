@@ -34,6 +34,7 @@ Install dependencies:
 
 ```sh
 pip3 install yfinance
+pip install python-dotenv (to load environment variables)
 pip3 install jupyter (optional)
 ```
 
@@ -41,6 +42,26 @@ pip3 install jupyter (optional)
 
 - Pandas will be installed by yfinance
   Else please install it independently
+
+### Setting environment variables
+
+If using a .env file to store environment variables such as
+
+- kensu_ingestion_url
+- kensu_ingestion_token
+
+Load them in the current shell / terminal with:
+
+```sh
+export $(xargs < .env)
+```
+
+Within python use this to access the environment variables:
+
+```sh
+import os
+print(os.environ['kensu_ingestion_url']
+```
 
 ## Usage
 
