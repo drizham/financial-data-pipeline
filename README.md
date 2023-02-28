@@ -34,7 +34,8 @@ Install dependencies:
 
 ```sh
 pip3 install yfinance
-pip install python-dotenv (to load environment variables)
+pip3 install python-dotenv (to load environment variables)
+pip3 install kensu
 pip3 install jupyter (optional)
 ```
 
@@ -65,14 +66,14 @@ print(os.environ['kensu_ingestion_url']
 
 ## Usage
 
-The entry file point is pipeline0.py
-This file
+The entry file point is pipeline1.py
+This file (includes Kensu observability)
 
 1. Deletes previously downloaded and processed data files in the 'data lake'
 2. Downloads and saves a single financial data instrument from yahoo finance with a wrapped yfinance call.
 3. Calls the data file 'summarising' function that evaluates the basic statistics of the downloaded files in step one and saves it to another folder.
 
-pipeline0.py is where more processing steps should be added to.
+pipeline1.py is where more processing steps should be added to.
 
 When done running pipelines deactivate the virtual environment with:
 
