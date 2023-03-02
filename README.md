@@ -36,6 +36,7 @@ Install dependencies:
 pip3 install yfinance
 pip3 install python-dotenv (to load environment variables)
 pip3 install kensu
+pip3 install pyspark==3.3.0 (for custom lineage and data transfer)
 pip3 install jupyter (optional)
 ```
 
