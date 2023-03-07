@@ -1,33 +1,13 @@
 import time
 import glob
-import os
 import utils_zero as uz
 import download_zero as dz
 import manage_lake
 import summarise_zero as sz
 import summarise_ob as so
 import sys
-from utils_zero import create_directory
-from dotenv.main import load_dotenv
-from kensu.utils.kensu_provider import KensuProvider
-import urllib3
 
 def main():
-    urllib3.disable_warnings() # disables warnings being sent back from kensu
-
-    # init the library using the conf file
-    try:
-        load_dotenv() # load environment variables from .env
-        os.environ["KSU_CONF_FILE"] = "conf.ini" # project configuration
-        # over rides some settings from conf.ini e.g. process_name = 'PipeLineX'
-        KensuProvider().initKensu(kensu_ingestion_url = os.environ['KSU_KENSU_INTEGRATION_URL'],
-                                  kensu_ingestion_token = os.environ["KSU_KENSU_INGESTION_TOKEN"],
-                                  process_name = 'PipeLineX') # this is automatically importing the env vars
-    except TypeError:   
-        msg = "Unable to initialize kensu, ensure tokens and ingestion url are correct"
-        print(msg)
-    else:
-
         ticker = 'CL=F' # ticker of instrument to download
         lake = 'lake1/' # folder data to be written to
         # get start and end dates to download data for
@@ -42,8 +22,7 @@ def main():
     
         # call first app in the pipeline - download financial data
         print('Downloading financial data files')
-        dz.download_instrument_2_csv0('GC=F',start_dates, end_dates, 'lake0/')
-    
+        
         # TODO put the run/ job settings in a file and use them
         run_settings = [ticker, start_dates, end_dates, lake]
         runner0(dz.download_instrument_2_csv0, run_settings)
