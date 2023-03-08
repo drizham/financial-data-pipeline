@@ -52,8 +52,9 @@ def download_instrument_2_csv0(symbol,week_start_dates, week_end_dates,
                 create_publish_for_data_source(name=full_path, format = 'csv' , location = full_path, schema=None)
                 # links source and sink above for lineage in Kensu
                 kensu.exp.link(input_names=[source0], output_name=full_path)         
-            except Exception:
+            except Exception as e:
                 print('Unable to add lineage data for source: yf download')
+                print(e)
                 break     
     return
 
