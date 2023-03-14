@@ -76,6 +76,14 @@ This file (includes Kensu observability)
 
 pipeline1.py is where more processing steps should be added to.
 
+pipeline3.py is the entry point for an emulator that emulates an bot that suggests trade directions based on a weeks worth of data.
+It also includes a very basic data quality check before suggesting the trade direction
+try it out with:
+
+```sh
+python3 pipeline3.py
+```
+
 When done running pipelines deactivate the virtual environment with:
 
 ```sh
