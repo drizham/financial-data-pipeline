@@ -3,6 +3,8 @@ import download_zero as dz
 import numpy as np
 import calendar_utils
 import direction_suggester0
+import quality_checks0
+
 def main(ticker, year, lake):
     print(f'Downloading {ticker}, data for {year} to {lake}')
 
@@ -13,6 +15,12 @@ def main(ticker, year, lake):
     week_start_dates = calendar_utils.week_start_dates(year)
     week_end_dates = calendar_utils.week_end_dates(year)
     dz.download_instrument_2_csv0(ticker, week_start_dates, week_end_dates, lake)
+
+    # check data quality before using data
+    expected_types = ['O', 'float64', 'float64', 'float64',
+       'float64', 'int64', 'float64', 'float64']
+    quality_checks0.quality_check_folder(lake,ticker, expected_types)
+
 
     # runs through all the *.csv files and outputs the recomended direction
     # of trade for the next week
