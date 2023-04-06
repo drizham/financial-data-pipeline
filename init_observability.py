@@ -17,6 +17,7 @@ def init_kensu(process_name):
         return KensuProvider().initKensu(kensu_ingestion_url = os.environ['KSU_KENSU_INTEGRATION_URL'],
                                   kensu_ingestion_token = os.environ["KSU_KENSU_INGESTION_TOKEN"],
                                   process_name = process_name,
+                                  code_version = '1.0.0',
                                   allow_reinit = True) # this is automatically importing the env vars
     except Exception as e:   
         msg = f'Unable to initialize kensu for {process_name} ensure tokens and ingestion url are correct'
