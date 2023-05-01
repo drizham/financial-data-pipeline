@@ -3,27 +3,29 @@ import download_zero as dz
 import numpy as np
 import calendar_utils
 import direction_suggester0
-import quality_checks0
+import pandas as pd
 
 def main(ticker, year, lake):
     print(f'Downloading {ticker}, data for {year} to {lake}')
 
-    # remove all previously downloaded data
+    # remove all previously downloaded data from folder
     manage_lake.delete_files(f'{lake}{ticker}/raw/')
     # get list of start and end dates to download data
     # & save to a separate *.csv file
     week_start_dates = calendar_utils.week_start_dates(year)
     week_end_dates = calendar_utils.week_end_dates(year)
+
+    # download ticker data for the year
+    # save each weeks' data as a *.csv file
     dz.download_instrument_2_csv0(ticker, week_start_dates, week_end_dates, lake)
 
-    # check data quality before using data
+    # check data quality for each file before using data
     expected_types = ['O', 'float64', 'float64', 'float64',
        'float64', 'int64', 'float64', 'float64']
-    quality_checks0.quality_check_folder(lake,ticker, expected_types)
-
-
+    
     # runs through all the *.csv files and outputs the recomended direction
     # of trade for the next week
-    direction_suggester0.market_direction0(lake, ticker)
+    # .market_direction1 calls the basic quality checks directly
+    direction_suggester0.market_direction1(lake, ticker, expected_types)
 
 main('CL=F', 2022, 'lake1/')
