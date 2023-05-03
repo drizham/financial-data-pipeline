@@ -1,6 +1,7 @@
 # over arching financial data downloader
 import yfinance as yf
 from utils_zero import create_directory # util to create directories
+import os
 # for sending custom data to Kensu
 import kensu.exp
 from kensu.exp import create_publish_for_data_source
@@ -40,7 +41,10 @@ def download_instrument_2_csv0(symbol,week_start_dates, week_end_dates,
                     print('Successfully downloaded data for: ' + symbol)
                     folder_path = folder + symbol + '/' + 'raw/' # + 'week' + str(week_count) + '.csv'
                     create_directory(folder_path) # creates directory if it does not exist
-                    full_path = folder_path + 'week' + str(week_count) + '.csv'
+                    full_path = folder_path + 'we_' + week_end_dates[x] + '.csv'
+                    # complete_path ensures that application lineage can be created from 
+                    # an app using this function to the down stream apps.
+                    complete_path = 'file:' + os.path.abspath(os.getcwd()) + '/' + full_path
                     d0.to_csv(full_path)
                     print('Downloaded data saved as: ' + full_path)
                     week_count = week_count + 1
@@ -50,7 +54,8 @@ def download_instrument_2_csv0(symbol,week_start_dates, week_end_dates,
                 source0 = 'yahoo finance data provider' # free text field for data source
                 # data source & sink for this data downloader
                 create_publish_for_data_source(name=source0, format='API call', location = 'from yahoo finance API', schema=None)
-                create_publish_for_data_source(name=full_path, format = 'csv' , location = full_path, schema=None)
+                #create_publish_for_data_source(name=full_path, format = 'csv' , location = full_path, schema=None)
+                create_publish_for_data_source(name=full_path, format = 'csv' , location = complete_path, schema=None)
                 # links source and sink above for lineage in Kensu
                 kensu.exp.link(input_names=[source0], output_name=full_path)         
             except Exception as e:
