@@ -115,4 +115,4 @@ def yf_2_csv1(symbol,start_date, end_date,
         except Exception as e:
             print('Unable to add lineage data for source: yf download')
             print(e)    
-    return
+    return full_path
