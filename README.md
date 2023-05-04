@@ -39,12 +39,14 @@ pip3 install kensu
 pip3 install pyspark==3.3.0 (for custom lineage and data transfer)
 pip3 install jupyter (optional)
 pip3 install GitPython
+pip3 install pandas==1.3.5
 ```
 
 ### Installation notes
 
 - Pandas will be installed by yfinance
-  Else please install it independently
+  Please replace it with pandas 1.3.5 for Kensu compatibility
+  Please install it independently!
 
 ### Setting environment variables
 
