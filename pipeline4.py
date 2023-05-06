@@ -33,25 +33,31 @@ def pipeline4(ticker, start_date, end_date, lake):
         print(msg)
     else:
         print(f'interim_path0: {interim_path0}')
-        table_builder.build0(lake, ticker, interim_path0, 'tableX.csv')
+        table_builder.build0(lake, ticker, interim_path0, 'table0_bronze.csv')
 
-# call pipeline 4
-# call with ticker, start date, end date, lake
-# example start and end dates
-""" start_date,end_date
-2023-01-02,2023-01-07
-2023-01-09,2023-01-14 """
+
 def call_pipeline(ticker, start_date, end_date, lake):
+    # call pipeline 4
+    # call with ticker, start date, end date, lake
+    # example start and end dates
+    """ 
+    ticker - 'CL=F'
+    start_date - 2023-01-02,2023-01-07
+    end_date - 2023-01-09,2023-01-14
+    lake - 'lake1/'
+    """
     pipeline4(ticker, start_date, end_date, lake)
 
-# get start and end dates to download data for
+
+# get start and end dates from file for range to download data
 start_dates, end_dates = uz.read_start_end_dates('start_end_dates.csv')
 
 def main(ticker, lake, date_file):
+    # read start and end dates for data downloads
     start_dates, end_dates = uz.read_start_end_dates(date_file)
-    # remove all previously downloaded / processed data from folder
+    # remove all previously downloaded / processed data from folders
     manage_lake.delete_files(f'{lake}{ticker}/raw/')
-    manage_lake.delete_files(f'{lake}{ticker}/description/')
+    #manage_lake.delete_files(f'{lake}{ticker}/description/')
     manage_lake.delete_files(f'{lake}{ticker}/interim0/')
     for x in range(len(start_dates)):
         pipeline4(ticker, start_dates[x], end_dates[x], lake)
