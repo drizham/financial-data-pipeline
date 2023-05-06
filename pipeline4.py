@@ -15,25 +15,16 @@ def pipeline4(ticker, start_date, end_date, lake):
     # call a 'processor' that processes each data *.csv file
     # & collects and transmit observability stats from each file
     print('Processing raw data files to interim0')
-    try:
-        init_kensu('interim0 file processor') # sets the name of application in Kensu
-    except TypeError:   
-        msg = "Unable to initialize kensu, ensure tokens and ingestion url are correct"
-        print(msg)
-    else:
-        interim_path0 = proc0.process_2_interim0(raw_path, f'{lake}{ticker}/interim0/')
-        print(f'data processed to interim0 at: {interim_path0}')
+    
+    init_kensu('interim0 file processor') # sets the name of application in Kensu
+    interim_path0 = proc0.process_2_interim0(raw_path, f'{lake}{ticker}/interim0/')
+    print(f'data processed to interim0 at: {interim_path0}')
 
     print('Processing interim0 data files to build table 0 - bronze class table')
     
-    try:
-        init_kensu('table 0 builder') # sets the name of application in Kensu
-    except TypeError:   
-        msg = "Unable to initialize kensu, ensure tokens and ingestion url are correct"
-        print(msg)
-    else:
-        print(f'interim_path0: {interim_path0}')
-        table_builder.build0(lake, ticker, interim_path0, 'table0_bronze.csv')
+    init_kensu('table 0 builder') # sets the name of application in Kensu
+    print(f'interim_path0: {interim_path0}')
+    table_builder.build0(lake, ticker, interim_path0, 'table0_bronze.csv')
 
 
 def call_pipeline(ticker, start_date, end_date, lake):
