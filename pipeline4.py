@@ -5,17 +5,19 @@ import process0 as proc0
 import table_builder
 from init_observability import init_kensu
 import utils_zero as uz
+import introduce_error 
 
 def pipeline4(ticker, start_date, end_date, lake):
-    print(f'Downloading {ticker}, data from {start_date} - {end_date} to {lake}')
     # download ticker data for timeframe and save as a *.csv file
+    print(f'Retrieving {ticker}, data from {start_date} - {end_date} to {lake}')
     raw_path = dz.yf_2_csv1(ticker, start_date, end_date, lake)
     print(f'data downloaded and saved to {raw_path}')
 
-    # call a 'processor' that processes each data *.csv file
+    introduce_error.randomly_introduce_errors(raw_path, 0.5)
+
+    # call a 'processor' that processes a data *.csv file
     # & collects and transmit observability stats from each file
     print('Processing raw data files to interim0')
-    
     init_kensu('interim0 file processor') # sets the name of application in Kensu
     interim_path0 = proc0.process_2_interim0(raw_path, f'{lake}{ticker}/interim0/')
     print(f'data processed to interim0 at: {interim_path0}')
