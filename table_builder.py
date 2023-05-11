@@ -21,8 +21,6 @@ def build0(lake, ticker,input, output):
 
     df0 = pd.DataFrame() # TODO is this needed?
 
-
-
     try:
         # check if data table to write to already exists
         if exists(output_path):

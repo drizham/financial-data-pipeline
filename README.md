@@ -70,21 +70,22 @@ print(os.environ['kensu_ingestion_url']
 
 ## Usage
 
-The entry file point is pipeline1.py
+The entry file point is pipeline4.py
 This file (includes Kensu observability)
 
 1. Deletes previously downloaded and processed data files in the 'data lake'
 2. Downloads and saves a single financial data instrument from yahoo finance with a wrapped yfinance call.
-3. Calls the data file 'summarising' function that evaluates the basic statistics of the downloaded files in step one and saves it to another folder.
+3. Calls interim application that sends the basic observability / statistics of the downloaded files in step one and saves it to another folder (interim0).
+4. Appends data to a 'bronze' table (if there is no table it builds it)
 
-pipeline1.py is where more processing steps should be added to.
+pipeline4.py is where more processing steps should be added to.
 
+TODO: BROKEN - Need to rebuild a pipeline that uses the direction suggester!!
 pipeline3.py is the entry point for an emulator that emulates an bot that suggests trade directions based on a weeks worth of data.
 It also includes a very basic data quality check before suggesting the trade direction
-try it out with:
 
 ```sh
-python3 pipeline3.py
+python3 pipeline4.py 'ES=F' 'lake1/' 'start_end_dates.csv'
 ```
 
 When done running pipelines deactivate the virtual environment with:
