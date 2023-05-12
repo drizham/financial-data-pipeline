@@ -65,7 +65,7 @@ Within python use this to access the environment variables:
 
 ```sh
 import os
-print(os.environ['kensu_ingestion_url']
+print(os.environ['kensu_ingestion_url'])
 ```
 
 ## Usage
