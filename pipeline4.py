@@ -60,6 +60,8 @@ def simulate_pipeline_run(ticker, lake, date_file, error_rate = 1):
 
 # run from command line with:
 # python pipeline4.py 'CL=F' 'lake1/' 'start_end_dates.csv'
+# call with '0' for zero error rate and '1' with a 100% error rate
+# python pipeline4.py 'CL=F' 'lake1/' 'start_end_dates.csv' '0' 
 if __name__ == '__main__':
     # Map command line arguments to function arguments.
     # expect ticker lake data_file
